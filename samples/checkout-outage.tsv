@@ -1,0 +1,37 @@
+timestamp	level	service	event	trace_id	duration_ms	status	message
+2026-09-28T14:01:40.000Z	INFO	checkout	request.completed	chk-100	82	200	Checkout completed
+2026-09-28T14:01:45.000Z	INFO	checkout	request.completed	chk-101	95	200	Checkout completed
+2026-09-28T14:01:50.000Z	INFO	checkout	request.completed	chk-102	88	200	Checkout completed
+2026-09-28T14:02:00.000Z	INFO	checkout	request.completed	chk-103	103	200	Checkout completed
+2026-09-28T14:02:05.000Z	INFO	checkout	request.completed	chk-104	91	200	Checkout completed
+2026-09-28T14:02:08.000Z	INFO	payments	request.completed	pay-501	68	200	Payment authorization completed
+2026-09-28T14:02:10.000Z	INFO	checkout	config.changed	-	-	-	Release checkout-config-42: database pool max_connections changed from 20 to 2
+2026-09-28T14:02:10.000Z	DEBUG	checkout	pool.resized	-	-	-	Connection pool resized; active=2 max=2 queued=0
+2026-09-28T14:02:13.000Z	INFO	inventory	request.completed	inv-201	44	200	Stock reservation completed
+2026-09-28T14:02:16.000Z	WARN	checkout	pool.wait	chk-104	500	-	Waiting for database connection; active=2 max=2 queued=8
+2026-09-28T14:02:21.000Z	ERROR	checkout	pool.exhausted	chk-104	5000	-	Database connection acquisition timed out; active=2 max=2 queued=12
+2026-09-28T14:02:21.040Z	ERROR	checkout	request.completed	chk-104	5040	503	Checkout unavailable: database connection timeout
+2026-09-28T14:02:18.000Z	WARN	checkout	pool.wait	chk-105	500	-	Waiting for database connection; delayed log delivery
+2026-09-28T14:02:23.060Z	ERROR	checkout	pool.exhausted	chk-105	5000	-	Database pool exhausted; no connection available
+2026-09-28T14:02:23.060Z	ERROR	checkout	request.completed	chk-105	5060	503	Checkout unavailable: database connection timeout
+2026-09-28T14:02:30.090Z	ERROR	checkout	pool.exhausted	chk-106	5000	-	Database pool exhausted; no connection available
+2026-09-28T14:02:30.090Z	ERROR	checkout	request.completed	chk-106	5090	503	Checkout unavailable: database connection timeout
+2026-09-28T14:02:38.110Z	ERROR	checkout	pool.exhausted	chk-104	5000	-	Database pool exhausted; no connection available
+2026-09-28T14:02:38.110Z	ERROR	checkout	request.completed	chk-104	5110	503	Checkout unavailable: database connection timeout
+2026-09-28T14:02:46.020Z	ERROR	checkout	pool.exhausted	chk-107	5000	-	Database pool exhausted; no connection available
+2026-09-28T14:02:46.020Z	ERROR	checkout	request.completed	chk-107	5020	503	Checkout unavailable: database connection timeout
+2026-09-28T14:03:02.080Z	ERROR	checkout	pool.exhausted	chk-108	5000	-	Database pool exhausted; no connection available
+2026-09-28T14:03:02.080Z	ERROR	checkout	request.completed	chk-108	5080	503	Checkout unavailable: database connection timeout
+2026-09-28T14:02:35.000Z	INFO	payments	request.completed	pay-502	72	200	Payment authorization completed
+2026-09-28T14:02:42.000Z	INFO	inventory	request.completed	inv-202	49	200	Stock reservation completed
+2026-09-28T14:02:55.000Z	WARN	checkout	health.degraded	-	-	-	Checkout error rate above alert threshold
+2026-09-28T14:03:10.000Z	INFO	operations	incident.acknowledged	-	-	-	On-call engineer investigating checkout pool saturation
+2026-09-28T14:03:15.000Z	INFO	checkout	config.rollback	-	-	-	Rollback checkout-config-42: database pool max_connections restored to 20
+2026-09-28T14:03:16.000Z	INFO	checkout	pool.ready	-	-	-	Connection pool ready; max=20 queued=0
+2026-09-28T14:03:17.000Z	INFO	checkout	request.completed	chk-109	112	200	Checkout completed after rollback
+2026-09-28T14:03:22.000Z	INFO	checkout	request.completed	chk-110	94	200	Checkout completed after rollback
+2026-09-28T14:03:30.000Z	INFO	checkout	request.completed	chk-111	87	200	Checkout completed after rollback
+2026-09-28T14:03:40.000Z	INFO	checkout	request.completed	chk-112	85	200	Checkout completed after rollback
+2026-09-28T14:03:50.000Z	INFO	checkout	request.completed	chk-113	89	200	Checkout completed after rollback
+2026-09-28T14:03:25.000Z	INFO	payments	request.completed	pay-503	65	200	Payment authorization completed
+2026-09-28T14:03:35.000Z	INFO	inventory	request.completed	inv-203	42	200	Stock reservation completed
