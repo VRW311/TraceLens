@@ -1,0 +1,72 @@
+name: Verify and deploy
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: tracelens-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+      - run: npm ci
+      - name: Build and test native engine
+        run: npm run build:native && npm run test:native
+      - name: Fetch pinned official Emscripten SDK
+        uses: actions/checkout@v4
+        with:
+          repository: emscripten-core/emsdk
+          ref: "4.0.15"
+          path: .emsdk
+      - name: Install SDK and build real WebAssembly
+        run: |
+          ./.emsdk/emsdk install 4.0.15
+          ./.emsdk/emsdk activate 4.0.15
+          source ./.emsdk/emsdk_env.sh
+          npm run build:wasm
+      - name: Compare native and WebAssembly results
+        run: npm run test:wasm
+      - name: Type-check and build interface
+        run: npm run build
+      - run: npx playwright install --with-deps chromium
+      - name: Test browser investigation flow
+        run: npm run test:e2e
+      - name: Save browser failure evidence
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: browser-failure-evidence
+          path: test-results/
+          retention-days: 7
+      - name: Package Pages site
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+  deploy:
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    needs: verify
+    runs-on: ubuntu-24.04
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/configure-pages@v5
+        with:
+          enablement: true
+      - name: Publish verified build
+        id: deployment
+        uses: actions/deploy-pages@v4

@@ -5,3 +5,5 @@ web/public/wasm/
 test-results/
 playwright-report/
 *.log
+
+.emsdk/
