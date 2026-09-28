@@ -10,3 +10,7 @@ Local verification on 2026-09-28 used GCC 13.3, Emscripten 4.0.15, Node 24, Type
 The earlier engine build also passed AddressSanitizer and UndefinedBehaviorSanitizer with leak detection disabled because the execution environment did not permit LeakSanitizer's process inspection. This is not a claim that leak detection passed.
 
 No production load benchmark, independent security audit, or cross-browser certification is claimed. The screenshot is captured from the real running app. GitHub Actions is the source of truth for the current commit's remote checks.
+
+## Remote verification
+
+GitHub Actions run [36476490348](https://github.com/VRW311/TraceLens/actions/runs/36476490348) passed the native build/tests, WebAssembly build/parity checks, TypeScript/build step, and all nine browser tests. Its deploy job failed while trying to create the Pages site: `Resource not accessible by integration`. The repository owner must enable Pages with GitHub Actions as its source once. The final fixture correction gives a healthy request its own trace ID; all local checks passed again, including five distinct failed traces.

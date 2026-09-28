@@ -4,7 +4,7 @@
 
 [![Verify and deploy](https://github.com/VRW311/TraceLens/actions/workflows/verify-and-deploy.yml/badge.svg)](https://github.com/VRW311/TraceLens/actions/workflows/verify-and-deploy.yml)
 
-> The live demo is being deployed. See [Actions](https://github.com/VRW311/TraceLens/actions) for the verified build and deployment status.
+> Deployment awaits one-time GitHub Pages enablement: repository **Settings → Pages → Build and deployment → Source: GitHub Actions**. All checks passed in [this CI run](https://github.com/VRW311/TraceLens/actions/runs/36476490348); publishing was blocked because the workflow token cannot enable Pages. After enabling it, rerun the latest failed deployment from [Actions](https://github.com/VRW311/TraceLens/actions). The intended demo address is `https://vrw311.github.io/TraceLens/` (not yet verified live).
 
 ![TraceLens showing the synthetic checkout incident](docs/screenshot.png)
 

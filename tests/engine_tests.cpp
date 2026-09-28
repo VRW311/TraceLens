@@ -200,6 +200,11 @@ int main() {
               r.summary.requests == 22,
           "sample totals");
     check(r.summary.p95 == 5090, "sample p95");
+    check(r.summary.traces == 21, "distinct sample traces");
+    Query failed;
+    failed.service = "checkout";
+    failed.level = "ERROR";
+    check(e.query(failed).summary.traces == 5, "five affected traces");
     check(e.findingsJson().find("Recovery evidence") != std::string::npos, "recovery");
     Query q;
     q.service = "checkout";
