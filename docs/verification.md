@@ -41,4 +41,8 @@ The deployed [GitHub Pages demo](https://vrw311.github.io/TraceLens/) was exerci
 - Line 31 showed successful post-rollback completion: HTTP 200, 112 ms.
 - Filtering to `payments` returned 3 request completions with 0 failed attempts and 0 error events.
 
-These checks confirm the documented employer walkthrough works on the published Chromium-based demo. They do not establish Firefox/Safari coverage, production performance, or a security audit. No application source was changed during this final check.
+These checks confirm the documented employer walkthrough works on the published Chromium-based demo. They do not establish Firefox/Safari coverage, production performance, or a security audit. No application source was changed during the browser smoke test.
+
+## Dependency audit — 2026-10-07
+
+The final CI-log review identified a high-severity advisory in the transitive development dependency `source-map-js` 1.2.1 ([GHSA-68fv-2mgg-jv7q](https://github.com/advisories/GHSA-68fv-2mgg-jv7q)). The lockfile was updated to patched version 1.2.2 without changing direct dependency ranges. `npm audit --json` then reported zero known vulnerabilities. This is an automated dependency check, not a comprehensive security audit; the patch is verified through the normal build and test workflow.
