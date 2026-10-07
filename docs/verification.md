@@ -13,4 +13,32 @@ No production load benchmark, independent security audit, or cross-browser certi
 
 ## Remote verification
 
-GitHub Actions run [36476490348](https://github.com/VRW311/TraceLens/actions/runs/36476490348) passed the native build/tests, WebAssembly build/parity checks, TypeScript/build step, and all nine browser tests. Its deploy job failed while trying to create the Pages site: `Resource not accessible by integration`. The repository owner must enable Pages with GitHub Actions as its source once. The final fixture correction gives a healthy request its own trace ID; all local checks passed again, including five distinct failed traces.
+GitHub Actions run [36476490348](https://github.com/VRW311/TraceLens/actions/runs/36476490348) passed the native build/tests, WebAssembly build/parity checks, TypeScript/build step, and all nine browser tests. Its deploy job failed while trying to create the Pages site: `Resource not accessible by integration`. The repository owner subsequently enabled Pages with GitHub Actions as its source. The final fixture correction gives a healthy request its own trace ID; all local checks passed again, including five distinct failed traces.
+
+## Deployment failures and recovery — 2026-10-07
+
+Two separate infrastructure failures occurred before successful publication:
+
+| Stage | Observed failure | Resolution and evidence |
+|---|---|---|
+| Pages configuration | `Create Pages site failed: Resource not accessible by integration` | The repository owner enabled **Settings → Pages → Source: GitHub Actions**. The workflow could then configure and publish the existing Pages site. |
+| Emscripten installation | `xz: (stdin): Unexpected end of input` and `tar: Unexpected EOF in archive` while unpacking the 4.0.15 SDK | The downloaded archive was incomplete. A workflow retry downloaded and installed it successfully. The underlying reason for the truncated download was not established; no application-code change was required for recovery. |
+
+Run [36477015078](https://github.com/VRW311/TraceLens/actions/runs/36477015078) subsequently completed both **verify** and **deploy** successfully. The SDK failure had stopped verification and skipped deployment; it was separate from the earlier Pages permission failure. Node.js deprecation and missing test-artifact warnings were not the fatal errors shown in those attempts.
+
+A later independent push run, [37657249972](https://github.com/VRW311/TraceLens/actions/runs/37657249972), also passed native tests, real WebAssembly build/parity checks, TypeScript/build, browser investigation tests, Pages packaging, and deployment.
+
+## Published demo smoke test — 2026-10-07
+
+The deployed [GitHub Pages demo](https://vrw311.github.io/TraceLens/) was exercised directly in Chrome:
+
+- Engine reached **Engine ready** and automatically loaded 36 sample events.
+- Initial summary matched the walkthrough: 6 failed request attempts, 12 error events, and 5.09 s p95.
+- Line 8 opened the configuration change from a pool limit of 20 to 2.
+- Line 12 opened the first pool exhaustion at 14:02:21 UTC.
+- **Follow this trace** selected `chk-104`: 5 events and 2 failed request attempts.
+- **Reset filters** restored the complete sample.
+- Line 31 showed successful post-rollback completion: HTTP 200, 112 ms.
+- Filtering to `payments` returned 3 request completions with 0 failed attempts and 0 error events.
+
+These checks confirm the documented employer walkthrough works on the published Chromium-based demo. They do not establish Firefox/Safari coverage, production performance, or a security audit. No application source was changed during this final check.
