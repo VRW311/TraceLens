@@ -4,7 +4,9 @@
 
 [![Verify and deploy](https://github.com/VRW311/TraceLens/actions/workflows/verify-and-deploy.yml/badge.svg)](https://github.com/VRW311/TraceLens/actions/workflows/verify-and-deploy.yml)
 
-> Deployment awaits one-time GitHub Pages enablement: repository **Settings → Pages → Build and deployment → Source: GitHub Actions**. All checks passed in [this CI run](https://github.com/VRW311/TraceLens/actions/runs/36476490348); publishing was blocked because the workflow token cannot enable Pages. After enabling it, rerun the latest failed deployment from [Actions](https://github.com/VRW311/TraceLens/actions). The intended demo address is `https://vrw311.github.io/TraceLens/` (not yet verified live).
+**[Try the live demo](https://vrw311.github.io/TraceLens/)** · [Two-minute employer walkthrough](#investigate-in-two-minutes)
+
+No installation or login is required. Open the demo and follow the walkthrough below; the synthetic sample incident loads automatically.
 
 ![TraceLens showing the synthetic checkout incident](docs/screenshot.png)
 
@@ -15,6 +17,8 @@ An error line rarely explains an incident. TraceLens connects timing, service ch
 Open the app and the synthetic checkout incident loads automatically. It contains healthy traffic, a pool configuration change, connection timeouts, repeated failures, and a rollback. No setup or login is needed to explore the demo. Your own files are processed in browser memory by a dedicated Web Worker; TraceLens has no upload API or analytics. The hosting provider still receives normal requests for the application itself.
 
 ## Investigate in two minutes
+
+Start at **[the live demo](https://vrw311.github.io/TraceLens/)**. This walkthrough uses the built-in synthetic checkout incident; you do not need to upload a file or run the build commands below.
 
 1. Notice **6 failed request attempts**, **12 error events**, and **5.09 s p95** in the 36-event sample.
 2. Open **Line 8** under “Configuration change preceded failure.” The pool limit changed from 20 to 2.
