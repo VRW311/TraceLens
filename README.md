@@ -99,7 +99,11 @@ Locally verified on Linux / Chromium:
 | Browser investigation tests | 9 passed |
 | TypeScript check and production build | Passed |
 
-The badge above reports the current GitHub Actions result; local results do not imply CI or deployment success. Browser coverage includes evidence links, trace following, combined filters, UTC bounds, pagination, malformed input, HTML-like log text, mobile overflow, and empty files. [Verification details](docs/verification.md).
+Remote verification and deployment also passed on 7 October 2026 in [run 37657249972](https://github.com/VRW311/TraceLens/actions/runs/37657249972). A direct Chrome smoke test of the published demo confirmed the sample summary, evidence links, trace following, reset, recovery event, and payments filter. The badge above reports the latest GitHub Actions result; the table records the original local test counts. Browser coverage includes evidence links, trace following, combined filters, UTC bounds, pagination, malformed input, HTML-like log text, mobile overflow, and empty files. [Verification details](docs/verification.md).
+
+## Deployment history
+
+Initial publication encountered a Pages permission failure and, on a later attempt, an incomplete Emscripten SDK download. Enabling Pages with GitHub Actions and retrying the SDK download resolved these separate failures. Verification and deployment then succeeded, and the live employer walkthrough was checked on 7 October 2026. [Failure details, recovery evidence, and published-demo checks](docs/verification.md#deployment-failures-and-recovery--2026-10-07).
 
 ## Scope and limitations
 
